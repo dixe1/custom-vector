@@ -40,8 +40,8 @@ int main()
 }
 ```
 ## Installation
-### Clone the repository:
+### 1. Clone the repository:
 ```bash
 git clone https://github.com/dixe1/custom-vector
 ```
-### Include vector.h in your C++ project.
+### 2. Include vector.h in your C++ project.
