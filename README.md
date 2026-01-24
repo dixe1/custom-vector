@@ -8,9 +8,9 @@ A simple custom implementation of a dynamic array (`vector`) in C++.
 - Element removal (`pop_back`)
 - Shrink to fit (`shrink_to_fit`)
 - Direct access (`at` and `at_perf`)
-- Iterators (begin() and end())
-- Clear all elements (clear())
-- Manual resize support
+- Iterators (`begin` and `end`)
+- Clear all elements (`clear`)
+- Manual resize (`reserve`)
 - Exception handling for out-of-range access
 
 ## at() vs at_perf()
