@@ -1,11 +1,7 @@
-//
-// Created by bartek on 1/24/26.
-//
+#pragma once
+#include <stdexcept>
 
-#ifndef UNTITLED_VECTOR_H
-#define UNTITLED_VECTOR_H
-
-namespace myTools
+namespace mvec
 {
     template <typename T>
     class vector
@@ -130,6 +126,4 @@ namespace myTools
             return data[index];
         }
     };
-} // myTools
-
-#endif //UNTITLED_VECTOR_H
+} // mvec
