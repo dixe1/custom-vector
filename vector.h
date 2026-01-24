@@ -7,7 +7,7 @@ namespace mvec
     class vector
     {
         T* data {nullptr};
-        int numElements{};  // how many items are in array
+        int numElements{};   // how many items are in array
         int capacity_{};     // how much array can store
 
         void resize()
@@ -125,5 +125,24 @@ namespace mvec
         {
             return data[index];
         }
+
+        T* begin() const
+        {
+            return data;
+        }
+        T* begin()
+        {
+            return data;
+        }
+
+        T* end() const
+        {
+            return data + numElements;
+        }
+        T* end()
+        {
+            return data + numElements;
+        }
+
     };
 } // mvec
