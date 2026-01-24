@@ -11,6 +11,20 @@ A simple custom implementation of a dynamic array (`vector`) in C++.
 - Manual resize support
 - Exception handling for out-of-range access
 
+## at() vs at_perf()
+
+**at(index)**
+- Performs bounds checking
+- Throws `std::out_of_range` if the index is out of range
+- Safer but slightly slower
+- Intended for safe element access
+
+**at_perf(index)**
+- Does not perform bounds checking
+- Faster direct access
+- Undefined behavior if the index is out of range
+- Intended for performance-critical code
+
 ## Usage
 
 ```cpp
@@ -21,6 +35,18 @@ int main()
 {
     mvec::vector<int> v;
 
+    // Reserve capacity for 1000 elements
+    v.reserve(1000);
+    
+    for (int i{};i<1000;i++)
+        v.push_back(i);
+
+    // Clear elements, but memory still allocated
+    v.clear();
+
+    // Reduce capacity to match size (0)
+    v.shrink_to_fit();
+
     v.push_back(1);
     v.push_back(2);
     v.push_back(3);
@@ -28,10 +54,11 @@ int main()
     std::cout << "Size: " << v.size() << std::endl;
     std::cout << "Capacity: " << v.capacity() << std::endl;
 
-    for (int i = 0; i < v.size(); i++) {
-        std::cout << v.at(i) << " ";
+    for (const auto& i : v) {
+        std::cout << i << " ";
     }
 
+    // Remove last element
     v.pop_back();
 
     std::cout << "\nAfter pop_back, size: " << v.size() << std::endl;
