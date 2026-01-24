@@ -71,7 +71,7 @@ namespace mvec
             capacity_ = numElements;
         }
 
-        void resize(const int newCapacity)
+        void reserve(const int newCapacity)
         {
             T* temp = new T[newCapacity];
 
@@ -87,6 +87,11 @@ namespace mvec
 
             if (numElements > newCapacity)
                 numElements = newCapacity;
+        }
+
+        void clear()
+        {
+            numElements = 0;
         }
 
         // ------------------------------------------------------
