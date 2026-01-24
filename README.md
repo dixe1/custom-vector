@@ -19,7 +19,7 @@ A simple custom implementation of a dynamic array (`vector`) in C++.
 
 int main()
 {
-    myTools::vector<int> v;
+    mvec::vector<int> v;
 
     v.push_back(1);
     v.push_back(2);
