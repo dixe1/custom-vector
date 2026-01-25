@@ -17,9 +17,8 @@ namespace mvec
             T* temp = new T[newCapacity];
 
             for (int i{}; i < numElements; i++)
-            {
-                temp[i] = data[i];
-            }
+                temp[i] = std::move(data[i]);
+
             delete[] data;
             data = temp;
             capacity_ = newCapacity;
@@ -63,9 +62,8 @@ namespace mvec
             T* temp = new T[numElements];
 
             for (int i{}; i < numElements; i++)
-            {
-                temp[i] = data[i];
-            }
+                temp[i] = std::move(data[i]);
+
             delete[] data;
             data = temp;
             capacity_ = numElements;
@@ -73,14 +71,14 @@ namespace mvec
 
         void reserve(const int newCapacity)
         {
+            if (newCapacity <= capacity_)
+                throw std::invalid_argument("newCapacity too small");
+
             T* temp = new T[newCapacity];
 
-            const int elementsToCopy = (numElements < newCapacity) ? numElements : newCapacity;
+            for (int i{}; i < numElements; i++)
+                temp[i] = std::move(data[i]);
 
-            for (int i{}; i < elementsToCopy; i++)
-            {
-                temp[i] = data[i];
-            }
             delete[] data;
             data = temp;
             capacity_ = newCapacity;
@@ -107,7 +105,7 @@ namespace mvec
             return capacity_;
         }
 
-        T& at(const int index) const
+        const T& at(const int index) const
         {
             if (index < 0 || index >= numElements)
                 throw std::out_of_range("Index out of range");
@@ -122,7 +120,7 @@ namespace mvec
             return data[index];
         }
 
-        T& at_perf(const int index) const
+        const T& at_perf(const int index) const
         {
             return data[index];
         }
@@ -131,7 +129,7 @@ namespace mvec
             return data[index];
         }
 
-        T* begin() const
+        const T* begin() const
         {
             return data;
         }
@@ -140,7 +138,7 @@ namespace mvec
             return data;
         }
 
-        T* end() const
+        const T* end() const
         {
             return data + numElements;
         }
