@@ -1,5 +1,6 @@
 #pragma once
 #include <stdexcept>
+#include <utility>
 
 namespace mvec
 {
@@ -38,6 +39,9 @@ namespace mvec
             delete[] data;
         }
 
+        // ==================================================================
+        //  modify
+
         void push_back(const T& item)
         {
             if (numElements == capacity_)
@@ -72,7 +76,8 @@ namespace mvec
         void reserve(const int newCapacity)
         {
             if (newCapacity <= capacity_)
-                throw std::invalid_argument("newCapacity too small");
+                // throw std::invalid_argument("newCapacity too small");
+                return;
 
             T* temp = new T[newCapacity];
 
@@ -82,9 +87,6 @@ namespace mvec
             delete[] data;
             data = temp;
             capacity_ = newCapacity;
-
-            if (numElements > newCapacity)
-                numElements = newCapacity;
         }
 
         void clear()
@@ -92,9 +94,11 @@ namespace mvec
             numElements = 0;
         }
 
-        // ------------------------------------------------------
-        // const functions
+        // ========================================================================
+        // info
 
+
+        // normal -----------
         int size() const
         {
             return numElements;
@@ -105,13 +109,6 @@ namespace mvec
             return capacity_;
         }
 
-        const T& at(const int index) const
-        {
-            if (index < 0 || index >= numElements)
-                throw std::out_of_range("Index out of range");
-
-            return data[index];
-        }
         T& at(const int index)
         {
             if (index < 0 || index >= numElements)
@@ -120,11 +117,32 @@ namespace mvec
             return data[index];
         }
 
-        const T& at_perf(const int index) const
+        T& operator[](const int index)
         {
             return data[index];
         }
-        T& at_perf(const int index)
+
+        T* begin()
+        {
+            return data;
+        }
+
+        T* end()
+        {
+            return data + numElements;
+        }
+
+
+        // const -----------
+        const T& at(const int index) const
+        {
+            if (index < 0 || index >= numElements)
+                throw std::out_of_range("Index out of range");
+
+            return data[index];
+        }
+
+        const T& operator[](const int index) const
         {
             return data[index];
         }
@@ -133,19 +151,10 @@ namespace mvec
         {
             return data;
         }
-        T* begin()
-        {
-            return data;
-        }
 
         const T* end() const
         {
             return data + numElements;
         }
-        T* end()
-        {
-            return data + numElements;
-        }
-
     };
 } // mvec
