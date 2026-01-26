@@ -2,6 +2,9 @@
 #include <stdexcept>
 #include <utility>
 
+// This vector is meant for simple types like int, float, or bool.
+// It won't work correctly with complex objects.
+
 namespace mvec
 {
     template <typename T>
