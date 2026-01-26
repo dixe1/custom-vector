@@ -7,13 +7,13 @@ A simple custom implementation of a dynamic array (`vector`) in C++.
 - Dynamic resizing (`push_back`)
 - Element removal (`pop_back`)
 - Shrink to fit (`shrink_to_fit`)
-- Direct access (`at` and `at_perf`)
+- Direct access (`at` and `operator[](index)`)
 - Iterators (`begin` and `end`)
 - Clear all elements (`clear`)
 - Manual resize (`reserve`)
 - Exception handling for out-of-range access
 
-## at() vs at_perf()
+## at() vs operator[](index)
 
 **at(index)**
 - Performs bounds checking
@@ -21,7 +21,7 @@ A simple custom implementation of a dynamic array (`vector`) in C++.
 - Safer but slightly slower
 - Intended for safe element access
 
-**at_perf(index)**
+**operator[](index)**
 - Does not perform bounds checking
 - Faster direct access
 - Undefined behavior if the index is out of range
