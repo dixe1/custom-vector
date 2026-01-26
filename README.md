@@ -2,7 +2,7 @@
 
 A simple custom implementation of a dynamic array (`vector`) in C++.
 
-This vector is meant for simple types like int, float, or bool.
+This vector is meant for simple types like int, float, or bool.  
 It won't work correctly with complex objects.
 
 ## Features
