@@ -1,16 +1,17 @@
 #pragma once
+#include <memory>
 #include <stdexcept>
 #include <utility>
 
-// This vector is meant for simple types like int, float, or bool.
-// It won't work correctly with complex objects.
+// This vector works for simple types (int, string).
+// It does not support thread or mutex.
 
 namespace mvec
 {
     template <typename T>
     class vector
     {
-        T* data {nullptr};
+        std::unique_ptr<T[]> data;
         int numElements{};   // how many items are in array
         int capacity_{};     // how much array can store
 
@@ -18,13 +19,12 @@ namespace mvec
         {
             const int newCapacity = (capacity_ == 0) ? 1 : capacity_ * 2;
 
-            T* temp = new T[newCapacity];
+            std::unique_ptr<T[]> temp = std::make_unique<T[]>(newCapacity);
 
             for (int i{}; i < numElements; i++)
                 temp[i] = std::move(data[i]);
 
-            delete[] data;
-            data = temp;
+            data = std::move(temp);
             capacity_ = newCapacity;
         }
 
@@ -34,12 +34,7 @@ namespace mvec
         {
             numElements = 0;
             capacity_ = 1;
-            data = new T[capacity_];
-        }
-
-        ~vector()
-        {
-            delete[] data;
+            data = std::make_unique<T[]>(capacity_);
         }
 
         // ==================================================================
@@ -66,13 +61,12 @@ namespace mvec
             if (numElements == 0)
                 return;
 
-            T* temp = new T[numElements];
+            std::unique_ptr<T[]> temp = std::make_unique<T[]>(numElements);
 
             for (int i{}; i < numElements; i++)
                 temp[i] = std::move(data[i]);
 
-            delete[] data;
-            data = temp;
+            data = std::move(temp);
             capacity_ = numElements;
         }
 
@@ -82,13 +76,12 @@ namespace mvec
                 // throw std::invalid_argument("newCapacity too small");
                 return;
 
-            T* temp = new T[newCapacity];
+            std::unique_ptr<T[]> temp = std::make_unique<T[]>(newCapacity);
 
             for (int i{}; i < numElements; i++)
                 temp[i] = std::move(data[i]);
 
-            delete[] data;
-            data = temp;
+            data = std::move(temp);
             capacity_ = newCapacity;
         }
 
