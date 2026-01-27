@@ -120,12 +120,12 @@ namespace mvec
 
         T* begin()
         {
-            return data;
+            return data.get();
         }
 
         T* end()
         {
-            return data + numElements;
+            return data.get() + numElements;
         }
 
 
@@ -145,12 +145,12 @@ namespace mvec
 
         const T* begin() const
         {
-            return data;
+            return data.get();
         }
 
         const T* end() const
         {
-            return data + numElements;
+            return data.get() + numElements;
         }
     };
 } // mvec

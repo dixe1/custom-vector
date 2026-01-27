@@ -35,14 +35,20 @@ It does not support thread or mutex.
 ```cpp
 #include "vector.h"
 #include <iostream>
+#include <string>
 
 int main()
 {
     mvec::vector<int> v;
+    mvec::vector<std::string> stringVec;
+
+    stringVec.push_back("Hello");
+    stringVec.push_back("!!!!");
+    std::cout << stringVec[0] << std::endl;
 
     // Reserve capacity for 1000 elements
     v.reserve(1000);
-    
+
     for (int i{};i<1000;i++)
         v.push_back(i);
 
