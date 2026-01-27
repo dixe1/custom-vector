@@ -2,7 +2,7 @@
 
 A simple custom implementation of a dynamic array (`vector`) in C++.
 
-This vector works for simple types (int, string).
+This vector works for simple types (int, string).  
 It does not support thread or mutex.
 
 ## Features
