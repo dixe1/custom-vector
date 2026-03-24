@@ -12,16 +12,16 @@ namespace mvec
     class vector
     {
         std::unique_ptr<T[]> data;
-        int numElements{};   // how many items are in array
-        int capacity_{};     // how much array can store
+        size_t numElements{};   // how many items are in array
+        size_t capacity_{};     // how much array can store
 
         void resize()
         {
-            const int newCapacity = (capacity_ == 0) ? 1 : capacity_ * 2;
+            const size_t newCapacity = (capacity_ == 0) ? 1 : capacity_ * 2;
 
-            std::unique_ptr<T[]> temp = std::make_unique<T[]>(newCapacity);
+            auto temp = std::make_unique<T[]>(newCapacity);
 
-            for (int i{}; i < numElements; i++)
+            for (size_t i{}; i < numElements; i++)
                 temp[i] = std::move(data[i]);
 
             data = std::move(temp);
@@ -61,24 +61,24 @@ namespace mvec
             if (numElements == 0)
                 return;
 
-            std::unique_ptr<T[]> temp = std::make_unique<T[]>(numElements);
+            auto temp = std::make_unique<T[]>(numElements);
 
-            for (int i{}; i < numElements; i++)
+            for (size_t i{}; i < numElements; i++)
                 temp[i] = std::move(data[i]);
 
             data = std::move(temp);
             capacity_ = numElements;
         }
 
-        void reserve(const int newCapacity)
+        void reserve(const size_t newCapacity)
         {
             if (newCapacity <= capacity_)
                 // throw std::invalid_argument("newCapacity too small");
                 return;
 
-            std::unique_ptr<T[]> temp = std::make_unique<T[]>(newCapacity);
+            auto temp = std::make_unique<T[]>(newCapacity);
 
-            for (int i{}; i < numElements; i++)
+            for (size_t i{}; i < numElements; i++)
                 temp[i] = std::move(data[i]);
 
             data = std::move(temp);
@@ -95,17 +95,17 @@ namespace mvec
 
 
         // normal -----------
-        int size() const
+        size_t size() const
         {
             return numElements;
         }
 
-        int capacity() const
+        size_t capacity() const
         {
             return capacity_;
         }
 
-        T& at(const int index)
+        T& at(const size_t index)
         {
             if (index < 0 || index >= numElements)
                 throw std::out_of_range("Index out of range");
@@ -113,7 +113,7 @@ namespace mvec
             return data[index];
         }
 
-        T& operator[](const int index)
+        T& operator[](const size_t index)
         {
             return data[index];
         }
@@ -130,7 +130,7 @@ namespace mvec
 
 
         // const -----------
-        const T& at(const int index) const
+        const T& at(const size_t index) const
         {
             if (index < 0 || index >= numElements)
                 throw std::out_of_range("Index out of range");
@@ -138,7 +138,7 @@ namespace mvec
             return data[index];
         }
 
-        const T& operator[](const int index) const
+        const T& operator[](const size_t index) const
         {
             return data[index];
         }
